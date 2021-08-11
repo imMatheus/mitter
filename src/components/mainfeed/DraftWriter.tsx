@@ -1,18 +1,19 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { Image, BarChart2, Smile, Calendar } from 'react-feather'
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import { fs } from '../../firebase'
 interface Props {}
 
 export default function DraftWriter({}: Props): ReactElement {
-    const [editorState, seteditorState] = useState('')
-    const draftChangedHandler = (e: any) => {
-        console.log(e)
-    }
+    useEffect(() => {
+        fs.collection('test').add({
+            name: 'matu',
+        })
+    }, [])
     return (
         <div className='mainfeed__draft brd-top brd-bottom'>
             <div className='mainfeed__draft__profileImage'></div>
             <div className='mainfeed__draft__content'>
-                <div className='draft' contentEditable='true' onChange={draftChangedHandler}>
+                <div className='draft' contentEditable='true'>
                     Hello, World!
                 </div>
                 <div className='actions'>
