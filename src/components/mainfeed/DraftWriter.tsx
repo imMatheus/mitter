@@ -18,14 +18,12 @@ export default function DraftWriter({}: Props): ReactElement {
                 zipCode: '',
                 sentence: '',
                 createdAt: new Date(),
+                avatar: '',
             },
+            numberOfDocuments: 1,
         })
     }
-    useEffect(() => {
-        fs.collection('test').add({
-            name: 'matu',
-        })
-    }, [])
+
     return (
         <div className='mainfeed__draft brd-top brd-bottom'>
             <div className='mainfeed__draft__profileImage'></div>

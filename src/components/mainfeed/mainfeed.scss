@@ -1,5 +1,5 @@
 .mainfeed {
-    height: 300vh;
+    min-height: 300vh;
     flex-grow: 1;
     width: 100%;
 
@@ -40,7 +40,6 @@
                         align-items: center;
                         position: relative;
                         justify-content: center;
-                        cursor: pointer;
 
                         svg {
                             width: 20px;

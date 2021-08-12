@@ -10,6 +10,8 @@
 
 // variables
 $color-theme: #1da1f2;
+$color-success: #155724;
+$color-red: #721c24;
 
 $transition-speed-fast: 250ms;
 $transition-speed-medium: 500ms;
@@ -45,11 +47,13 @@ body {
 }
 
 // hover effect
-.hover-effect {
-    &:hover {
-        &::before {
-            opacity: 0.08;
-        }
+.hover-effect-basic {
+    position: relative;
+    // background-color: magenta;
+    cursor: pointer;
+
+    &:hover::before {
+        opacity: 0.08;
     }
 
     &::before {
@@ -61,6 +65,20 @@ body {
         opacity: 0;
         border-radius: 50%;
         transition: opacity $transition-speed-fast;
+    }
+}
+
+.hover-effect {
+    @extend .hover-effect-basic;
+    // svg::before {
+    //     background-color: orange !important;
+    // }
+}
+.hover-effect-red {
+    // background-color: blue;
+    @extend .hover-effect-basic;
+    &::before {
+        background-color: red !important;
     }
 }
 

@@ -6,7 +6,7 @@ function App() {
     return (
         <AuthProvider>
             <div className='App'>
-                <SignUp />
+                {/* <SignUp /> */}
                 <Home />
             </div>
         </AuthProvider>
