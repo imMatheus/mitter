@@ -2,6 +2,9 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 import firebase from 'firebase/app'
 import { auth, fs } from '../firebase'
 import User from '../types/User'
+
+console.log(auth.currentUser)
+
 async function signup(email: string, password: string, displayName: string) {
     const usersNamesRef = fs.collection('users').where('displayName', '==', displayName)
     const doc: firebase.firestore.DocumentData = await usersNamesRef.get()
@@ -63,6 +66,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     const [currentUser, setCurrentUser] = useState<User | null>(null)
 
     useEffect(() => {
+        console.log(1)
+
         const unsubscribe = auth.onAuthStateChanged(async (user) => {
             const fetchUser = async (user: firebase.User | any) => {
                 if (!user) return null

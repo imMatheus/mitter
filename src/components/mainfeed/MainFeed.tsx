@@ -1,12 +1,18 @@
 import React, { ReactElement } from 'react'
 import DraftWriter from './DraftWriter'
+import { useAuth } from '../../context/AuthContext'
+import Tweet from '../tweet/Tweet'
 
-interface Props {}
+export default function MainFeed(): ReactElement {
+    const { currentUser } = useAuth()
 
-export default function MainFeed({}: Props): ReactElement {
     return (
         <div className='mainfeed'>
             <DraftWriter />
+            <Tweet />
+            <Tweet />
+            <Tweet />
+            <Tweet />
         </div>
     )
 }

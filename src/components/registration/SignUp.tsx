@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
 
 export default function SignUp() {
-    const { signup } = useAuth()
+    const { signup, login } = useAuth()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -12,6 +12,12 @@ export default function SignUp() {
         e.preventDefault()
 
         const response = await signup(email, password, displayName)
+        console.log(response)
+    }
+    const handleSubmit2 = async (e: any) => {
+        e.preventDefault()
+
+        const response = await login(email, password)
         console.log(response)
     }
     return (
@@ -36,6 +42,9 @@ export default function SignUp() {
                 onChange={(e: any) => setDisplayName(e.target.value)}
             />
             <button className='action-btn' onClick={handleSubmit}>
+                Submit
+            </button>
+            <button className='action-btn' onClick={handleSubmit2}>
                 Submit
             </button>
         </div>
