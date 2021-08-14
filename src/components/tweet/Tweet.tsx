@@ -18,8 +18,6 @@ export default function Tweet({
     profileImage,
     createdAt,
 }: Props): ReactElement {
-    console.log(createdAt)
-
     function timeConverter(UNIX_timestamp: number) {
         var a = new Date(UNIX_timestamp * 1000)
         var months = [
@@ -45,6 +43,7 @@ export default function Tweet({
     let secsNow = Math.floor(new Date().getTime() / 1000)
     const getDateSincePost = (postSecs: number, secsNow: number) => {
         let diff = Math.abs(secsNow - postSecs)
+        if (diff < 15) return 'NOW' // within 1 minute
         if (diff < 60) return diff + ' secs' // within 1 minute
         if (diff < 3600) return Math.floor(diff / 60) + ' min' // within 1 hour
         if (diff < 86400) return Math.floor(diff / 3600) + ' hours' // within 1 day

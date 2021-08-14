@@ -18,16 +18,30 @@
 
 body {
   background: var(--background);
-  font-size: 15px;
+  font-size: 16px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: var(--color-text);
-  font-size: 15px;
 }
 
-.home-container .content {
+.App > .content {
   display: flex;
   max-width: 1400px;
   margin: 0 auto;
+}
+
+.center-expand {
+  flex-grow: 1;
+  width: 100%;
+}
+
+.text-bold {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.text-subtitle {
+  font-size: 16px;
+  color: var(--color-text-dimmed);
 }
 
 .hover-effect-basic, .hover-effect-red, .hover-effect {
@@ -82,11 +96,6 @@ button.action-btn:hover {
   opacity: 0.8;
 }
 
-.mainfeed {
-  min-height: 300vh;
-  flex-grow: 1;
-  width: 100%;
-}
 .mainfeed__draft {
   margin-top: 40px;
   min-height: 116px;
@@ -198,6 +207,70 @@ button.action-btn:hover {
 }
 .tweet-container__content .metadata__holder span {
   margin-left: 5px;
+}
+
+.users-page > .banner-wrapper {
+  height: 230px;
+  background: linear-gradient(pink, black);
+}
+.users-page .user-info-container {
+  padding: 0 16px;
+}
+.users-page .user-info-container > .controls {
+  margin-bottom: 4px;
+  padding-top: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+.users-page .user-info-container > .controls .profileImage {
+  margin-top: -79px;
+  width: 134px;
+  height: 134px;
+  border-radius: 50%;
+  border: solid 4px var(--background);
+}
+.users-page .user-info-container > .controls .profileImage > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-size: cover;
+}
+.users-page .user-info-container .user-bio {
+  margin-top: 12px;
+  font-weight: 500;
+}
+.users-page .user-info-container .user-metadata-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+.users-page .user-info-container .user-metadata-wrapper p {
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.users-page .user-info-container .user-metadata-wrapper p > svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 4px;
+}
+.users-page .user-info-container .user-metadata-wrapper p > span.link {
+  color: #1da1f2;
+}
+.users-page .user-info-container .clout-status {
+  padding-bottom: 12px;
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+}
+.users-page .user-info-container .clout-status > p {
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+.users-page .user-info-container .clout-status > p > span:first-child {
+  margin-right: 4px;
 }
 
 .sidebar-container {

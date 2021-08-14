@@ -1,10 +1,15 @@
 import firebase from 'firebase/app'
 
 export default interface User extends firebase.User {
-    displayName: string
     userUID: string
     email: string
+    name: string
+    displayName: string
     profileImage: string
-    score?: number
-    targets?: number
+    bio: string
+    location: string
+    url: string
+    joinedAt: Date
+    amountOfFollowers: number
+    amountOfFollowing: number
 }
