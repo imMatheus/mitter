@@ -4,10 +4,9 @@ import { useParams } from 'react-router'
 import { fs } from '../../firebase'
 import User from '../../types/User'
 import Tweet from '../tweet/Tweet'
+import timeConverter from '../../utils/timeConverter'
 
-interface Props {}
-
-export default function UserPage({}: Props): ReactElement {
+export default function UserPage(): ReactElement {
     const { userId }: { userId: string } = useParams()
     const [fetchedUser, setFetchedUser] = useState<User | null>(null)
     const [usersTweets, setUsersTweets] = useState<any>([])
@@ -39,7 +38,10 @@ export default function UserPage({}: Props): ReactElement {
                 setUsersTweets(g)
             })
     }, [fetchedUser])
-    console.log(usersTweets)
+    console.log(fetchedUser?.joinedAt.toDate().getMonth())
+    if (fetchedUser?.joinedAt) {
+        console.log(timeConverter(fetchedUser?.joinedAt.seconds))
+    }
 
     return (
         <div className='users-page center-expand'>
@@ -62,15 +64,17 @@ export default function UserPage({}: Props): ReactElement {
                         <div className='user-metadata-wrapper'>
                             <p className='text-subtitle'>
                                 <MapPin />
-                                The/Goat
+                                {fetchedUser.location}
                             </p>
                             <p>
                                 <Link />
-                                <span className='link'>hejahanif.se</span>
+                                <a className='link' href={fetchedUser.url}>
+                                    {fetchedUser.url}
+                                </a>
                             </p>
                             <p className='text-subtitle'>
                                 <Calendar />
-                                Joined July 2012
+                                Joined {timeConverter(fetchedUser.joinedAt.seconds)}
                             </p>
                         </div>
                         <div className='clout-status'>
@@ -88,11 +92,13 @@ export default function UserPage({}: Props): ReactElement {
                         return (
                             <Tweet
                                 name={fetchedUser.name}
+                                numberOfComments={tweet.numberOfComments}
+                                numberOfRetweets={tweet.numberOfRetweets}
                                 userName={fetchedUser.displayName}
                                 profileImage={fetchedUser.profileImage}
                                 createdAt={tweet.date}
                                 text={tweet.text}
-                                likes={tweet.numberOfLikes}
+                                numberOfLikes={tweet.numberOfLikes}
                             />
                         )
                     })}

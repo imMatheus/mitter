@@ -35,7 +35,7 @@ export default function DraftWriter({}: Props): ReactElement {
                 amountOfFollowers: ':number',
                 amountOfFollowing: ':number',
             },
-            amountOfUsers: 6,
+            amountOfUsers: 15,
         }).then(async ({ ids, reference, data }) => {
             if (!ids) return
 
@@ -53,7 +53,7 @@ export default function DraftWriter({}: Props): ReactElement {
                             name: data[index].name,
                             profileImage: data[index].profileImage,
                         },
-                        numberOfDocuments: 10,
+                        numberOfDocuments: 15,
                     })
                 })
             )

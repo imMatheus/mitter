@@ -81,6 +81,12 @@ body {
     }
 }
 
+// remove default style for router link
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
 .hover-effect {
     @extend .hover-effect-basic;
     // svg::before {

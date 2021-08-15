@@ -9,7 +9,7 @@ export default interface User extends firebase.User {
     bio: string
     location: string
     url: string
-    joinedAt: Date
+    joinedAt: firebase.firestore.Timestamp
     amountOfFollowers: number
     amountOfFollowing: number
 }
