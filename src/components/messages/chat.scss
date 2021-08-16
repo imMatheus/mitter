@@ -1,0 +1,32 @@
+.chat-container {
+    background-color: red;
+
+    .messages-container {
+        background-color: blue;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+
+        .message {
+            width: max-content;
+            min-height: 36px;
+            padding: 0 16px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            margin: 2px 0;
+            background-color: var(--color-text);
+            color: var(--background);
+            &.sent {
+                background-color: $color-theme;
+                align-self: flex-end;
+            }
+        }
+    }
+
+    .inputField {
+        background-color: green;
+        position: fixed;
+        bottom: 0;
+    }
+}

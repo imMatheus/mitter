@@ -37,7 +37,7 @@ export default function Tweet({
             </div>
             <div className='tweet-container__content'>
                 <div className='header'>
-                    <Link to={`/${userName}`}>
+                    <Link to={`/u/${userName}`}>
                         <span>{name}</span>@{userName} . {date}
                     </Link>
                     <div className='options  hover-effect'>

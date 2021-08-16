@@ -1,16 +1,19 @@
 import React, { ReactElement, useEffect, useState } from 'react'
-import { ArrowLeft, MapPin, Link, Calendar } from 'react-feather'
+import { ArrowLeft, MapPin, Link, Calendar, Mail } from 'react-feather'
 import { useParams } from 'react-router'
 import { fs } from '../../firebase'
 import User from '../../types/User'
 import Tweet from '../tweet/Tweet'
 import timeConverter from '../../utils/timeConverter'
+import { useAuth } from '../../context/AuthContext'
 
 export default function UserPage(): ReactElement {
     const { userId }: { userId: string } = useParams()
+    const { currentUser } = useAuth()
+    console.log(currentUser)
+
     const [fetchedUser, setFetchedUser] = useState<User | null>(null)
     const [usersTweets, setUsersTweets] = useState<any>([])
-    console.log(userId)
     useEffect(() => {
         fs.collection('users')
             .where('displayName', '==', userId)
@@ -38,10 +41,6 @@ export default function UserPage(): ReactElement {
                 setUsersTweets(g)
             })
     }, [fetchedUser])
-    console.log(fetchedUser?.joinedAt.toDate().getMonth())
-    if (fetchedUser?.joinedAt) {
-        console.log(timeConverter(fetchedUser?.joinedAt.seconds))
-    }
 
     return (
         <div className='users-page center-expand'>
@@ -55,6 +54,12 @@ export default function UserPage(): ReactElement {
                                 <img src={fetchedUser.profileImage} alt='profile' />
                             </div>
                             <div className='controls__buttons'>
+                                <button className='circular-btn'>
+                                    <Mail />
+                                </button>
+                                <button className='circular-btn'>
+                                    <Mail />
+                                </button>
                                 <button className='action-btn'>Follow</button>
                             </div>
                         </div>

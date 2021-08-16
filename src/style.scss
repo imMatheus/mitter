@@ -24,9 +24,11 @@ $border-radius-round: 15px;
 
 :root {
     --background: #000000;
+    --background-light: #536471;
     --background-dimmed: #202327;
     --background-dimmed-dark: #15181c;
     --color-text: #d9d9d9;
+    --color-text-light: #ffffff;
     --color-text-dimmed: #6e767d;
 }
 
@@ -40,7 +42,7 @@ body {
 
 .App > .content {
     display: flex;
-    max-width: 1400px;
+    max-width: 1250px;
     margin: 0 auto;
 }
 
@@ -116,6 +118,23 @@ a {
 }
 
 // components
+
+button.circular-btn {
+    border: solid 1px var(--background-light);
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7px;
+    border-radius: 50%;
+    cursor: pointer;
+
+    & > svg {
+        color: var(--color-text-light);
+        width: 90%;
+    }
+}
+
 button.action-btn {
     background-color: $color-theme;
     color: #ffffff;
@@ -133,5 +152,6 @@ button.action-btn {
 
 @import './components/mainfeed/mainfeed.scss';
 @import './components/tweet/tweet.scss';
+@import './components/messages/messages.scss';
 @import './components/userpage/userpage.scss';
 @import './components/sidebar/sidebar.scss';

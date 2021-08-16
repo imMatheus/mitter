@@ -10,9 +10,11 @@
 
 :root {
   --background: #000000;
+  --background-light: #536471;
   --background-dimmed: #202327;
   --background-dimmed-dark: #15181c;
   --color-text: #d9d9d9;
+  --color-text-light: #ffffff;
   --color-text-dimmed: #6e767d;
 }
 
@@ -25,7 +27,7 @@ body {
 
 .App > .content {
   display: flex;
-  max-width: 1400px;
+  max-width: 1250px;
   margin: 0 auto;
 }
 
@@ -85,6 +87,21 @@ a {
 
 .brd-left {
   border-left: solid 1px var(--color-text-dimmed);
+}
+
+button.circular-btn {
+  border: solid 1px var(--background-light);
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 7px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+button.circular-btn > svg {
+  color: var(--color-text-light);
+  width: 90%;
 }
 
 button.action-btn {
@@ -214,6 +231,36 @@ button.action-btn:hover {
   margin-left: 5px;
 }
 
+.chat-container {
+  background-color: red;
+}
+.chat-container .messages-container {
+  background-color: blue;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.chat-container .messages-container .message {
+  width: max-content;
+  min-height: 36px;
+  padding: 0 16px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  margin: 2px 0;
+  background-color: var(--color-text);
+  color: var(--background);
+}
+.chat-container .messages-container .message.sent {
+  background-color: #1da1f2;
+  align-self: flex-end;
+}
+.chat-container .inputField {
+  background-color: green;
+  position: fixed;
+  bottom: 0;
+}
+
 .users-page > .banner-wrapper {
   height: 230px;
   background: linear-gradient(pink, black);
@@ -225,6 +272,7 @@ button.action-btn:hover {
   margin-bottom: 4px;
   padding-top: 12px;
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
 }
 .users-page .user-info-container > .controls .profileImage {
@@ -239,6 +287,15 @@ button.action-btn:hover {
   height: 100%;
   border-radius: 50%;
   background-size: cover;
+}
+.users-page .user-info-container > .controls .controls__buttons {
+  display: flex;
+}
+.users-page .user-info-container > .controls .controls__buttons > button {
+  margin-left: 8px;
+}
+.users-page .user-info-container > .controls .controls__buttons > button:first-child {
+  margin-left: 0;
 }
 .users-page .user-info-container .user-bio {
   margin-top: 12px;
@@ -297,7 +354,7 @@ button.action-btn:hover {
 .sidebar-container .option:hover {
   background-color: var(--background-dimmed);
 }
-.sidebar-container .option > span {
+.sidebar-container .option > a {
   text-overflow: ellipsis;
   max-width: 100%;
   margin: 0 16px 0 20px;

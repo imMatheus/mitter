@@ -1,25 +1,26 @@
 import React from 'react'
 import { Home, Hash, Bell, Mail, User, MoreHorizontal } from 'react-feather'
+import { Link } from 'react-router-dom'
 export default function Sidebar() {
     return (
         <div className='sidebar-container brd-right'>
             <div className='option'>
-                <Home /> <span>Home</span>
+                <Home /> <Link to='/'>Home</Link>
             </div>
             <div className='option'>
-                <Hash /> <span>Explore</span>
+                <Hash /> <Link to='/'>Explore</Link>
             </div>
             <div className='option'>
-                <Bell /> <span>Notifications</span>
+                <Bell /> <Link to='/'>Notifications</Link>
             </div>
             <div className='option'>
-                <Mail /> <span>Messages</span>
+                <Mail /> <Link to='/messages'>Messages</Link>
             </div>
             <div className='option'>
-                <User /> <span>Profile</span>
+                <User /> <Link to='/'>Profile</Link>
             </div>
             <div className='option'>
-                <MoreHorizontal /> <span>More</span>
+                <MoreHorizontal /> <Link to='/'>More</Link>
             </div>
         </div>
     )
