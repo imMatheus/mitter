@@ -35,6 +35,7 @@ export default function MainFeed(): ReactElement {
     useEffect(() => {
         if (!currentUser) return console.log('hahahahahahahahahah')
         const tweetsRef = fs.collectionGroup('tweets')
+        console.log('use Effect')
 
         if (lastTweetRef.current) {
             tweetsRef

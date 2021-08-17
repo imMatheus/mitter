@@ -1,32 +1,60 @@
 .chat-container {
-    background-color: red;
-
+    position: relative;
     .messages-container {
-        background-color: blue;
+        padding: 0 18px 8px 18px;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
 
         .message {
-            width: max-content;
+            font-size: 17px;
+            max-width: 62%;
+            white-space: initial;
             min-height: 36px;
-            padding: 0 16px;
-            border-radius: 9999px;
+            padding: 13px 18px;
+
             display: flex;
-            align-items: center;
             margin: 2px 0;
-            background-color: var(--color-text);
-            color: var(--background);
+            border-radius: 16px;
+            word-break: break-all;
             &.sent {
-                background-color: $color-theme;
                 align-self: flex-end;
+                background-color: $color-theme;
+                color: var(--color-text-light);
+                border-bottom-right-radius: 0;
+            }
+            &.received {
+                align-self: flex-start;
+                background-color: var(--color-text);
+                color: var(--background);
+                border-bottom-left-radius: 0;
             }
         }
     }
 
+    // .dummyContainer {
+    //     height: 8px;
+
+    //     background-color: orange;
+    // }
+
     .inputField {
-        background-color: green;
-        position: fixed;
+        background: var(--background);
+        width: 100%;
+        position: sticky;
         bottom: 0;
+        padding: 9px;
+        min-height: 60px;
+        display: flex;
+
+        > input {
+            padding: 4px 13px;
+            border-radius: 9999px;
+            color: var(--color-text);
+            background: transparent;
+            margin-right: 12px;
+            width: 100%;
+            border: solid 1px var(--color-text-dimmed);
+        }
     }
 }

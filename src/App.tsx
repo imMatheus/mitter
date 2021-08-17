@@ -35,6 +35,7 @@ function App() {
                                     <UserPage />
                                 </Route>
                             </Switch>
+                            {/* <Sidebar /> */}
                             <Sidebar />
                         </Router>
                     ) : (

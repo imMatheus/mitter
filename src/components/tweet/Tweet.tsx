@@ -28,7 +28,7 @@ export default function Tweet({
     let postSecs = Math.floor(createdAt.toMillis() / 1000)
     let secsNow = Math.floor(new Date().getTime() / 1000)
 
-    let date = getDateSincePost(postSecs, secsNow)
+    let date = getDateSincePost(postSecs)
 
     return (
         <div className='tweet-container brd-bottom'>
