@@ -19,7 +19,7 @@
 
             .profileImage {
                 $profileImage-size: 134px;
-                margin-top: ($profileImage-size / -2) - $padding-top;
+                margin-top: math.div($profileImage-size, -2) - $padding-top;
                 width: $profileImage-size;
                 height: $profileImage-size;
                 border-radius: 50%;

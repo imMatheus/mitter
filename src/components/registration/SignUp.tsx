@@ -42,10 +42,10 @@ export default function SignUp() {
                 onChange={(e: any) => setDisplayName(e.target.value)}
             />
             <button className='action-btn' onClick={handleSubmit}>
-                Submit
+                Sign up
             </button>
             <button className='action-btn' onClick={handleSubmit2}>
-                Submit
+                login
             </button>
         </div>
     )

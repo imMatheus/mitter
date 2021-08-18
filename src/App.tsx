@@ -10,18 +10,17 @@ import MyMessages from './components/messages/MyMessages'
 import Chat from './components/messages/Chat'
 function App() {
     const { currentUser } = useAuth()
-    console.log(currentUser)
+    console.log('currentUser', currentUser)
 
     return (
-        <AuthProvider>
+        <Router>
             <div className='App'>
                 <div className='content'>
-                    {!currentUser ? (
-                        <Router>
+                    {currentUser ? (
+                        <>
                             <Sidebar />
 
                             <Switch>
-                                {/* <SignUp /> */}
                                 <Route exact path='/'>
                                     <MainFeed />
                                 </Route>
@@ -35,15 +34,14 @@ function App() {
                                     <UserPage />
                                 </Route>
                             </Switch>
-                            {/* <Sidebar /> */}
                             <Sidebar />
-                        </Router>
+                        </>
                     ) : (
                         <SignUp />
                     )}
                 </div>
             </div>
-        </AuthProvider>
+        </Router>
     )
 }
 

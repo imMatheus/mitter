@@ -8,6 +8,7 @@ interface Props {}
 firdeum(app)
 export default function DraftWriter({}: Props): ReactElement {
     const { currentUser } = useAuth()
+    console.log(currentUser)
 
     const tweetHandler = async () => {
         // firedumAdd({
@@ -35,7 +36,7 @@ export default function DraftWriter({}: Props): ReactElement {
                 amountOfFollowers: ':number',
                 amountOfFollowing: ':number',
             },
-            amountOfUsers: 15,
+            amountOfUsers: 1,
         }).then(async ({ ids, reference, data }) => {
             if (!ids) return
 
@@ -53,7 +54,7 @@ export default function DraftWriter({}: Props): ReactElement {
                             name: data[index].name,
                             profileImage: data[index].profileImage,
                         },
-                        numberOfDocuments: 15,
+                        numberOfDocuments: 3,
                     })
                 })
             )
