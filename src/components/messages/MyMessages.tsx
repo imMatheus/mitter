@@ -1,29 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { fs } from '../../firebase'
+import { useAuth } from '../../context/AuthContext'
 export default function MyMessages() {
+    const { currentUser } = useAuth()
+
     const user1 = '14iJU3Jz8sepPcLFqraB9kk8Et42'
     const user2 = '2EUi9oJr0AZI6TVNda0NKEpjXN62'
     const [messages, setMessages] = useState<any>([])
     const [dms, setDms] = useState<any>([])
-    console.log(messages)
 
     useEffect(() => {
+        if (!currentUser) return
         fs.collection('messages')
             .where('participants', 'array-contains-any', [user1, user2])
             .get()
             .then((messages) => {
                 setMessages(
                     messages.docs.map((message) => {
+                        const data = message.data()
+                        const participants = data.participants.filter(
+                            (n: any) => n !== currentUser.uid
+                        )
+
                         return { ...message.data(), id: message.id }
                     })
                 )
             })
-        console.log(1)
     }, [])
 
     useEffect(() => {
-        console.log('messages', messages)
-
         let friends: any[] = []
         for (let i = 0; i < messages.length; i++) {
             friends = friends.concat(messages[i].participants)
@@ -32,7 +37,6 @@ export default function MyMessages() {
             return self.indexOf(value) === index
         }
         friends = friends.filter(onlyUnique)
-        console.log('friends', friends)
     }, [messages])
 
     const addMessage = () => {

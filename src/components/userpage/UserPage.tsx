@@ -1,5 +1,5 @@
-import React, { ReactElement, useEffect, useState } from 'react'
-import { ArrowLeft, MapPin, Link, Calendar, Mail } from 'react-feather'
+import { ReactElement, useEffect, useState } from 'react'
+import { MapPin, Link, Calendar, Mail } from 'react-feather'
 import { useParams } from 'react-router'
 import { fs } from '../../firebase'
 import User from '../../types/User'
@@ -10,10 +10,17 @@ import { useAuth } from '../../context/AuthContext'
 export default function UserPage(): ReactElement {
     const { userId }: { userId: string } = useParams()
     const { currentUser } = useAuth()
-    console.log(currentUser)
 
     const [fetchedUser, setFetchedUser] = useState<User | null>(null)
     const [usersTweets, setUsersTweets] = useState<any>([])
+
+    const startConversation = () => {
+        if (!fetchedUser || !currentUser) return
+        fs.collection('messages')
+            .where('participants', 'array-contains', [fetchedUser.uid, currentUser.uid].sort())
+            .get()
+            .then((snapshot) => console.log(snapshot))
+    }
     useEffect(() => {
         fs.collection('users')
             .where('displayName', '==', userId)
@@ -57,7 +64,7 @@ export default function UserPage(): ReactElement {
                                 <button className='circular-btn'>
                                     <Mail />
                                 </button>
-                                <button className='circular-btn'>
+                                <button className='circular-btn' onClick={startConversation}>
                                     <Mail />
                                 </button>
                                 <button className='action-btn'>Follow</button>

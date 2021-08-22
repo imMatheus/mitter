@@ -23,7 +23,6 @@ export default function MainFeed(): ReactElement {
             const { clientHeight } = listInnerRef.current
             scrolls.current += 1
             if (clientHeight - scrollY < 800 && !loading) {
-                console.log('Reached bottom ------------------------------------------------------')
                 setLoading(true)
             }
         })

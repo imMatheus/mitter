@@ -8,7 +8,6 @@ interface Props {}
 firdeum(app)
 export default function DraftWriter({}: Props): ReactElement {
     const { currentUser } = useAuth()
-    console.log(currentUser)
 
     const tweetHandler = async () => {
         // firedumAdd({

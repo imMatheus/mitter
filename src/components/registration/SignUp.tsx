@@ -12,13 +12,11 @@ export default function SignUp() {
         e.preventDefault()
 
         const response = await signup(email, password, displayName)
-        console.log(response)
     }
     const handleSubmit2 = async (e: any) => {
         e.preventDefault()
 
         const response = await login(email, password)
-        console.log(response)
     }
     return (
         <div>

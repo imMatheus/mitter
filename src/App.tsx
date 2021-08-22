@@ -10,7 +10,6 @@ import MyMessages from './components/messages/MyMessages'
 import Chat from './components/messages/Chat'
 function App() {
     const { currentUser } = useAuth()
-    console.log('currentUser', currentUser)
 
     return (
         <Router>

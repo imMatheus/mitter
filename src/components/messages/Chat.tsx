@@ -3,28 +3,38 @@ import { fs, auth } from '../../firebase'
 import { useAuth } from '../../context/AuthContext'
 import timeConverter from '../../utils/timeConverter'
 import getDateSincePost from '../../utils/getDateSincePost'
+import { useParams } from 'react-router'
 export default function Chat() {
     const [message, setMessage] = useState('')
     const [messages, setMessages] = useState<any>([])
     const dummyRef = useRef<HTMLDivElement>(null)
     const { currentUser } = useAuth()
-    const url = '6yUJV5LTz8DyjLtfUu5C'
+    const { chatId }: { chatId: string } = useParams()
+    function be(...args: any) {
+        let res: any = []
+        for (let i = 0; i < args.length; i++) {
+            res = [...res, ...args[i]]
+        }
+        console.log(res)
+    }
+    be([1, 2, 3, 4, 5], [6, 7, 8, 9], [10, 11, 12, 13, 14, 15, 16, 17, 18, 19])
     useEffect(() => {
         fs.collection('messages')
-            .doc(url)
+            .doc(chatId)
             .collection('messages')
             .orderBy('createdAt')
             .onSnapshot((snapshot) => {
                 setMessages(snapshot.docs.map((doc) => doc.data()))
             })
-        return () => {}
+        return () => {
+            console.log('we leave chat now')
+        }
     }, [])
     const sendMessage = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault()
         if (!currentUser || message === '') return
-        console.log(currentUser)
         fs.collection('messages')
-            .doc(url)
+            .doc(chatId)
             .collection('messages')
             .add({
                 text: message,
@@ -43,10 +53,8 @@ export default function Chat() {
                 {messages &&
                     messages.map((message: any) => {
                         let { seconds } = message.createdAt
-                        // console.log(seconds)
                         let x = new Date()
                         console.log(getDateSincePost(seconds))
-                        // console.log(timeConverter(seconds))
 
                         return (
                             <div className={`message ${message.state || 'sent'}`}>
