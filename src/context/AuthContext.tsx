@@ -3,7 +3,13 @@ import firebase from 'firebase/app'
 import { auth, fs } from '../firebase'
 import User from '../types/User'
 
-async function signup(email: string, password: string, displayName: string) {
+async function signup(
+    email: string,
+    password: string,
+    name: string,
+    displayName: string,
+    imageUrl: string | ArrayBuffer
+): Promise<{ message: string } | null> {
     const usersNamesRef = fs.collection('users').where('displayName', '==', displayName)
     const doc: firebase.firestore.DocumentData = await usersNamesRef.get()
     if (doc.exists) {
@@ -11,6 +17,21 @@ async function signup(email: string, password: string, displayName: string) {
         const error = { message: 'Display name already exist' }
         return error
     }
+    if (displayName.trim().length < 3) {
+        return { message: 'Display name must be 3 or more characters long' }
+    }
+
+    if (!imageUrl) {
+        return { message: 'Please pick a profile image.' }
+    }
+
+    if (password?.length < 6) {
+        return { message: 'Password has to be 6 or more characters' }
+    }
+    if (!name) {
+        return { message: 'Please provide a name' }
+    }
+
     try {
         await auth.createUserWithEmailAndPassword(email, password)
 
@@ -20,13 +41,16 @@ async function signup(email: string, password: string, displayName: string) {
             .set({
                 displayName: displayName,
                 email: email,
+                name: name,
                 userUID: auth.currentUser?.uid,
+                profileImage: imageUrl,
             }) // setting its info
     } catch (error) {
         console.log('error', error)
 
-        return error
+        return { message: 'Oops, something went wrong' }
     }
+    return null
 }
 function login(email: string, password: string): Promise<firebase.auth.UserCredential> {
     return auth.signInWithEmailAndPassword(email, password)
@@ -46,7 +70,13 @@ interface Context {
     currentUser: User | null
     logout: () => Promise<void>
     login: (email: string, password: string) => Promise<firebase.auth.UserCredential>
-    signup: (email: string, password: string, displayName: string) => Promise<unknown>
+    signup: (
+        email: string,
+        password: string,
+        name: string,
+        displayName: string,
+        imageUrl: string | ArrayBuffer
+    ) => Promise<{ message: string } | null>
     resetPassword: (email: string) => Promise<unknown>
 }
 

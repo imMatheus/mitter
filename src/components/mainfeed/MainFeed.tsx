@@ -10,6 +10,7 @@ export default function MainFeed(): ReactElement {
     const [loading, setLoading] = useState(false)
     const scrolls = useRef(0)
     const lastTweetRef = useRef<any>(null)
+    console.log(currentUser)
 
     const PAGINATION_LIMIT = 15
     const [tweets, setTweets] = useState<any>([])

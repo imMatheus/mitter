@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { fs, auth } from '../../firebase'
+import { fs } from '../../firebase'
 import { useAuth } from '../../context/AuthContext'
-import timeConverter from '../../utils/timeConverter'
 import getDateSincePost from '../../utils/getDateSincePost'
 import { useParams } from 'react-router'
 export default function Chat() {
@@ -17,8 +16,11 @@ export default function Chat() {
             .collection('messages')
             .orderBy('createdAt')
             .onSnapshot((snapshot) => {
+                console.log('hello', snapshot)
+
                 setMessages(snapshot.docs.map((doc) => doc.data()))
             })
+
         return () => {
             console.log('we leave chat now')
         }
@@ -26,15 +28,11 @@ export default function Chat() {
     const sendMessage = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault()
         if (!currentUser || message === '') return
-        fs.collection('messages')
-            .doc(chatId)
-            .collection('messages')
-            .add({
-                text: message,
-                senderId: currentUser.uid,
-                createdAt: new Date(),
-                state: Math.random() > 0.5 ? 'sent' : 'received',
-            })
+        fs.collection('messages').doc(chatId).collection('messages').add({
+            text: message,
+            senderId: currentUser.uid,
+            createdAt: new Date(),
+        })
 
         setMessage('')
         dummyRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -48,9 +46,11 @@ export default function Chat() {
                         let { seconds } = message.createdAt
                         let x = new Date()
                         console.log(getDateSincePost(seconds))
+                        console.log(message)
+                        const state = message.senderId === currentUser?.uid ? 'sent' : 'received'
 
                         return (
-                            <div className={`message ${message.state || 'sent'}`}>
+                            <div className={`message ${state}`}>
                                 {message.text}
                                 <span>{getDateSincePost(seconds)}</span>
                             </div>

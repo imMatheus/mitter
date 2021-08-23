@@ -6,23 +6,50 @@ import User from '../../types/User'
 import Tweet from '../tweet/Tweet'
 import timeConverter from '../../utils/timeConverter'
 import { useAuth } from '../../context/AuthContext'
+import { useHistory } from 'react-router-dom'
 
 export default function UserPage(): ReactElement {
     const { userId }: { userId: string } = useParams()
     const { currentUser } = useAuth()
+    const history = useHistory()
 
     const [fetchedUser, setFetchedUser] = useState<User | null>(null)
     const [usersTweets, setUsersTweets] = useState<any>([])
 
     const startConversation = () => {
-        console.log('hejs')
-
         if (!fetchedUser || !currentUser) return
+        console.log('fetchedUser.uid', fetchedUser.uid)
+        console.log(' currentUser.uid', currentUser.uid)
+        let urlLink = ''
+        if (fetchedUser.uid > currentUser.uid) {
+            console.log('it is bigger')
+            urlLink = `${currentUser.uid}-${fetchedUser.uid}`
+        } else {
+            console.log('it is smaller')
+            urlLink = `${fetchedUser.uid}-${currentUser.uid}`
+        }
         fs.collection('messages')
-            .where('participants', 'array-contains', [fetchedUser.uid, currentUser.uid].sort())
+            .doc(urlLink)
             .get()
-            .then((snapshot) => console.log(snapshot))
+            .then(async (response) => {
+                console.log(response)
+
+                if (!response.exists) {
+                    console.log('message did not exist')
+
+                    await fs
+                        .collection('messages')
+                        .doc(urlLink)
+                        .set({
+                            participants: [currentUser.uid, fetchedUser.uid],
+                        })
+                } else {
+                    console.log('message did  exist')
+                }
+                history.push(`/messages/${urlLink}`)
+            })
     }
+
     useEffect(() => {
         fs.collection('users')
             .where('displayName', '==', userId)
@@ -85,7 +112,7 @@ export default function UserPage(): ReactElement {
                             </p>
                             <p className='text-subtitle'>
                                 <Calendar />
-                                Joined {timeConverter(fetchedUser.joinedAt.seconds)}
+                                Joined {timeConverter(fetchedUser.joinedAt?.seconds)}
                             </p>
                         </div>
                         <div className='clout-status'>
