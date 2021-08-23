@@ -18,17 +18,16 @@ export default function Chat() {
             .get()
             .then((response) => {
                 const participants = response.data()?.participants
+                // if the user is in participants we can fetch the messages
                 if (participants?.some((n: string) => n === currentUser.uid)) {
                     setUserHasAccess(true)
-                    console.log(response.data())
                     fs.collection('messages')
                         .doc(chatId)
                         .collection('messages')
                         .orderBy('createdAt')
                         .onSnapshot((snapshot) => {
-                            console.log('hello', snapshot)
-
                             setMessages(snapshot.docs.map((doc) => doc.data()))
+                            dummyRef.current?.scrollIntoView()
                         })
                 }
             })
@@ -36,7 +35,7 @@ export default function Chat() {
         return () => {
             console.log('we leave chat now')
         }
-    }, [])
+    }, [chatId, currentUser])
     const sendMessage = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault()
         if (!currentUser || message === '') return
@@ -47,7 +46,8 @@ export default function Chat() {
         })
 
         setMessage('')
-        dummyRef.current?.scrollIntoView({ behavior: 'smooth' })
+        // dummyRef.current?.scrollIntoView({ behavior: 'smooth' })
+        dummyRef.current?.scrollIntoView()
     }
     return (
         <div className='chat-container center-expand'>
@@ -60,15 +60,35 @@ export default function Chat() {
                                 let { seconds } = message.createdAt
                                 const state =
                                     message.senderId === currentUser?.uid ? 'sent' : 'received'
+                                let b = false
+                                if (index < messages.length - 1) {
+                                    const { seconds: nextSeconds } = messages[index + 1]?.createdAt
+                                    const nextSenderId = messages[index + 1].senderId
 
+                                    // If the next message was sent within one minute
+                                    // and the next message is from the same user
+                                    if (
+                                        Math.abs(seconds - nextSeconds) < 60 &&
+                                        nextSenderId === message.senderId
+                                    ) {
+                                        b = true
+                                    }
+                                }
+                                //TODO change so that the first messages within
+                                // the minute gets the special border and not the last one
                                 return (
                                     <>
-                                        <div className={`message ${state}`} key={index}>
+                                        <div
+                                            className={`message ${state} ${b ? 'center' : ''}`}
+                                            key={index}
+                                        >
                                             {message.text}
                                         </div>
-                                        <span className='message__time'>
-                                            {getDateSincePost(seconds)}
-                                        </span>
+                                        {!b && (
+                                            <span className='message__time'>
+                                                {getDateSincePost(seconds)}
+                                            </span>
+                                        )}
                                     </>
                                 )
                             })}

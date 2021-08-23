@@ -1,5 +1,7 @@
 .chat-container {
     position: relative;
+    display: flex;
+    flex-direction: column;
     .messages-container {
         padding: 0 18px 8px 18px;
         display: flex;
@@ -25,16 +27,23 @@
                 & + .message__time {
                     align-self: flex-end;
                 }
+                &.center {
+                    border-top-right-radius: 0;
+                }
             }
             &.received {
                 align-self: flex-start;
                 background-color: var(--color-text);
                 color: var(--background);
                 border-bottom-left-radius: 0;
+                &.center {
+                    border-top-left-radius: 0;
+                }
             }
+
             &__time {
                 align-self: flex-start;
-                padding: 2px 18px 8px 18px;
+                padding: 2px 0 8px 0;
                 font-size: 14px;
                 color: var(--color-text-dimmed);
             }
@@ -49,6 +58,7 @@
         padding: 9px;
         min-height: 60px;
         display: flex;
+        margin-top: auto;
 
         > input {
             padding: 4px 13px;

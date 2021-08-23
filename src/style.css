@@ -233,6 +233,8 @@ button.action-btn:hover {
 
 .chat-container {
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 .chat-container .messages-container {
   padding: 0 18px 8px 18px;
@@ -260,15 +262,21 @@ button.action-btn:hover {
 .chat-container .messages-container .message.sent + .message__time {
   align-self: flex-end;
 }
+.chat-container .messages-container .message.sent.center {
+  border-top-right-radius: 0;
+}
 .chat-container .messages-container .message.received {
   align-self: flex-start;
   background-color: var(--color-text);
   color: var(--background);
   border-bottom-left-radius: 0;
 }
+.chat-container .messages-container .message.received.center {
+  border-top-left-radius: 0;
+}
 .chat-container .messages-container .message__time {
   align-self: flex-start;
-  padding: 2px 18px 8px 18px;
+  padding: 2px 0 8px 0;
   font-size: 14px;
   color: var(--color-text-dimmed);
 }
@@ -280,6 +288,7 @@ button.action-btn:hover {
   padding: 9px;
   min-height: 60px;
   display: flex;
+  margin-top: auto;
 }
 .chat-container .inputField > input {
   padding: 4px 13px;
