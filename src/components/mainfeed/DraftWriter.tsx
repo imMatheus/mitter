@@ -1,14 +1,8 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement } from 'react'
 import { Image, BarChart2, Smile, Calendar } from 'react-feather'
-import app, { fs, auth } from '../../firebase'
-import { useAuth } from '../../context/AuthContext'
-import firebase from 'firebase/app'
-import firdeum, { firedumAdd, firedumCreateUser } from 'firedum'
-interface Props {}
-firdeum(app)
-export default function DraftWriter({}: Props): ReactElement {
-    const { currentUser } = useAuth()
-
+import { fs } from '../../firebase'
+import { firedumAdd, firedumCreateUser } from 'firedum'
+export default function DraftWriter(): ReactElement {
     const tweetHandler = async () => {
         // firedumAdd({
         //     collectionReference: fs.collection('users').doc(currentUser!.uid).collection('tweets'),

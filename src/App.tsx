@@ -1,6 +1,6 @@
 import React from 'react'
-import { AuthProvider, useAuth } from './context/AuthContext'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { useAuth } from './context/AuthContext'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import UserPage from './components/userpage/UserPage'
 import SignUp from './components/registration/SignUp'

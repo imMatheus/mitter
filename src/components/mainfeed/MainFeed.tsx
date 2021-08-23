@@ -4,7 +4,6 @@ import { useAuth } from '../../context/AuthContext'
 import Tweet from '../tweet/Tweet'
 import { fs } from '../../firebase'
 import firebase from 'firebase/app'
-import { isAwaitExpression } from 'typescript'
 export default function MainFeed(): ReactElement {
     const { currentUser } = useAuth()
     const listInnerRef = useRef<HTMLDivElement>(null)

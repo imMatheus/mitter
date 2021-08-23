@@ -10,14 +10,7 @@ export default function Chat() {
     const dummyRef = useRef<HTMLDivElement>(null)
     const { currentUser } = useAuth()
     const { chatId }: { chatId: string } = useParams()
-    function be(...args: any) {
-        let res: any = []
-        for (let i = 0; i < args.length; i++) {
-            res = [...res, ...args[i]]
-        }
-        console.log(res)
-    }
-    be([1, 2, 3, 4, 5], [6, 7, 8, 9], [10, 11, 12, 13, 14, 15, 16, 17, 18, 19])
+
     useEffect(() => {
         fs.collection('messages')
             .doc(chatId)

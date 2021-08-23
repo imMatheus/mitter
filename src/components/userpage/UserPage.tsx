@@ -15,6 +15,8 @@ export default function UserPage(): ReactElement {
     const [usersTweets, setUsersTweets] = useState<any>([])
 
     const startConversation = () => {
+        console.log('hejs')
+
         if (!fetchedUser || !currentUser) return
         fs.collection('messages')
             .where('participants', 'array-contains', [fetchedUser.uid, currentUser.uid].sort())
@@ -61,9 +63,6 @@ export default function UserPage(): ReactElement {
                                 <img src={fetchedUser.profileImage} alt='profile' />
                             </div>
                             <div className='controls__buttons'>
-                                <button className='circular-btn'>
-                                    <Mail />
-                                </button>
                                 <button className='circular-btn' onClick={startConversation}>
                                     <Mail />
                                 </button>
