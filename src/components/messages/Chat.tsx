@@ -61,6 +61,7 @@ export default function Chat() {
                                 const state =
                                     message.senderId === currentUser?.uid ? 'sent' : 'received'
                                 let b = false
+                                let c = false
                                 if (index < messages.length - 1) {
                                     const { seconds: nextSeconds } = messages[index + 1]?.createdAt
                                     const nextSenderId = messages[index + 1].senderId
@@ -74,12 +75,26 @@ export default function Chat() {
                                         b = true
                                     }
                                 }
-                                //TODO change so that the first messages within
-                                // the minute gets the special border and not the last one
+                                if (index > 0) {
+                                    const { seconds: prevSeconds } = messages[index - 1]?.createdAt
+                                    const prevSenderId = messages[index - 1].senderId
+
+                                    // If the next message was sent within one minute
+                                    // and the next message is from the same user
+                                    if (
+                                        Math.abs(seconds - prevSeconds) > 60 ||
+                                        prevSenderId !== message.senderId
+                                    ) {
+                                        c = true
+                                    }
+                                }
+
                                 return (
                                     <>
                                         <div
-                                            className={`message ${state} ${b ? 'center' : ''}`}
+                                            className={`message ${state} ${
+                                                c || index === 0 ? '' : 'center'
+                                            }`}
                                             key={index}
                                         >
                                             {message.text}
