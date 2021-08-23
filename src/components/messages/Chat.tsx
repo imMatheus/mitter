@@ -9,16 +9,28 @@ export default function Chat() {
     const dummyRef = useRef<HTMLDivElement>(null)
     const { currentUser } = useAuth()
     const { chatId }: { chatId: string } = useParams()
+    const [userHasAccess, setUserHasAccess] = useState(false)
 
     useEffect(() => {
+        if (!currentUser) return
         fs.collection('messages')
             .doc(chatId)
-            .collection('messages')
-            .orderBy('createdAt')
-            .onSnapshot((snapshot) => {
-                console.log('hello', snapshot)
+            .get()
+            .then((response) => {
+                const participants = response.data()?.participants
+                if (participants?.some((n: string) => n === currentUser.uid)) {
+                    setUserHasAccess(true)
+                    console.log(response.data())
+                    fs.collection('messages')
+                        .doc(chatId)
+                        .collection('messages')
+                        .orderBy('createdAt')
+                        .onSnapshot((snapshot) => {
+                            console.log('hello', snapshot)
 
-                setMessages(snapshot.docs.map((doc) => doc.data()))
+                            setMessages(snapshot.docs.map((doc) => doc.data()))
+                        })
+                }
             })
 
         return () => {
@@ -40,35 +52,43 @@ export default function Chat() {
     return (
         <div className='chat-container center-expand'>
             im chat
-            <div className='messages-container'>
-                {messages &&
-                    messages.map((message: any) => {
-                        let { seconds } = message.createdAt
-                        let x = new Date()
-                        console.log(getDateSincePost(seconds))
-                        console.log(message)
-                        const state = message.senderId === currentUser?.uid ? 'sent' : 'received'
+            {userHasAccess ? (
+                <>
+                    <div className='messages-container'>
+                        {messages &&
+                            messages.map((message: any, index: number) => {
+                                let { seconds } = message.createdAt
+                                const state =
+                                    message.senderId === currentUser?.uid ? 'sent' : 'received'
 
-                        return (
-                            <div className={`message ${state}`}>
-                                {message.text}
-                                <span>{getDateSincePost(seconds)}</span>
-                            </div>
-                        )
-                    })}
-            </div>
-            <span className='dummyContainer' ref={dummyRef}></span>
-            <form onSubmit={(e: any) => sendMessage(e)} className='inputField brd-top'>
-                <input
-                    type='text'
-                    value={message}
-                    placeholder='Start a new message'
-                    onChange={(e: any) => {
-                        setMessage(e.target.value)
-                    }}
-                />
-                <button className='action-btn'>Send</button>
-            </form>
+                                return (
+                                    <>
+                                        <div className={`message ${state}`} key={index}>
+                                            {message.text}
+                                        </div>
+                                        <span className='message__time'>
+                                            {getDateSincePost(seconds)}
+                                        </span>
+                                    </>
+                                )
+                            })}
+                    </div>
+                    <form onSubmit={(e: any) => sendMessage(e)} className='inputField brd-top'>
+                        <input
+                            type='text'
+                            value={message}
+                            placeholder='Start a new message'
+                            onChange={(e: any) => {
+                                setMessage(e.target.value)
+                            }}
+                        />
+                        <button className='action-btn'>Send</button>
+                    </form>
+                    <span className='dummyContainer' ref={dummyRef}></span>
+                </>
+            ) : (
+                <h1>you are not allow</h1>
+            )}
         </div>
     )
 }

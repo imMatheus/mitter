@@ -6,24 +6,42 @@ export default function Sidebar() {
     const { logout, currentUser } = useAuth()
     return (
         <div className='sidebar-container brd-right'>
-            <div className='option'>
-                <Home /> <Link to='/'>Home</Link>
-            </div>
-            <div className='option'>
-                <Hash /> <Link to='/'>Explore</Link>
-            </div>
-            <div className='option'>
-                <Bell /> <Link to='/'>Notifications</Link>
-            </div>
-            <div className='option'>
-                <Mail /> <Link to='/messages'>Messages</Link>
-            </div>
-            <div className='option'>
-                <User /> <Link to={`/u/${currentUser!.displayName}`}>Profile</Link>
-            </div>
-            <div className='option' onClick={logout}>
-                <MoreHorizontal /> <Link to='/'>More</Link>
-            </div>
+            <Link to='/'>
+                <div className='option'>
+                    <Home />
+                    Home
+                </div>
+            </Link>
+            <Link to='/'>
+                <div className='option'>
+                    <Hash />
+                    Explore
+                </div>
+            </Link>
+            <Link to='/'>
+                <div className='option'>
+                    <Bell />
+                    Notifications
+                </div>
+            </Link>
+            <Link to='/messages'>
+                <div className='option'>
+                    <Mail />
+                    Messages
+                </div>
+            </Link>
+            <Link to={`/u/${currentUser!.displayName}`}>
+                <div className='option'>
+                    <User />
+                    Profile
+                </div>
+            </Link>
+            <Link to='/'>
+                <div className='option' onClick={logout}>
+                    <MoreHorizontal />
+                    More
+                </div>
+            </Link>
         </div>
     )
 }

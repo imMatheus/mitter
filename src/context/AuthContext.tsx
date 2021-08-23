@@ -17,8 +17,8 @@ async function signup(
         const error = { message: 'Display name already exist' }
         return error
     }
-    if (displayName.trim().length < 3) {
-        return { message: 'Display name must be 3 or more characters long' }
+    if (displayName.trim().length < 2) {
+        return { message: 'Display name must be 2 or more characters long' }
     }
 
     if (!imageUrl) {

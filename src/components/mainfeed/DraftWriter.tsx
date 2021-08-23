@@ -1,57 +1,29 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { Image, BarChart2, Smile, Calendar } from 'react-feather'
+import { useAuth } from '../../context/AuthContext'
 import { fs } from '../../firebase'
-import { firedumAdd, firedumCreateUser } from 'firedum'
 export default function DraftWriter(): ReactElement {
+    const { currentUser } = useAuth()
+    const [tweet, setTweet] = useState('')
+    if (!currentUser) return <h1>please log in</h1>
     const tweetHandler = async () => {
-        // firedumAdd({
-        //     collectionReference: fs.collection('users').doc(currentUser!.uid).collection('tweets'),
-        //     fields: {
-        //         firstName: '',
-        //         userName: '',
-        //         text: '',
-        //         createdAt: new Date(),
-        //         avatar: '',
-        //         likes: Math.floor(Math.random() * 100),
-        //     },
-        //     numberOfDocuments: 1,
-        // })
-        await firedumCreateUser({
-            collectionReference: fs.collection('users'),
-            fields: {
-                name: ':firstName',
-                displayName: ':userName',
-                profileImage: ':avatar',
-                bio: ':sentence',
-                location: ':city',
-                url: ':url',
-                joinedAt: new Date(),
-                amountOfFollowers: ':number',
-                amountOfFollowing: ':number',
-            },
-            amountOfUsers: 1,
-        }).then(async ({ ids, reference, data }) => {
-            if (!ids) return
-
-            await Promise.all(
-                ids.map(async (id: string, index: number) => {
-                    await firedumAdd({
-                        collectionReference: reference.doc(id).collection('tweets'),
-                        fields: {
-                            text: ':sentence',
-                            date: ':recent',
-                            numberOfComments: ':number',
-                            numberOfRetweets: ':number',
-                            numberOfLikes: ':number',
-                            displayName: data[index].displayName,
-                            name: data[index].name,
-                            profileImage: data[index].profileImage,
-                        },
-                        numberOfDocuments: 3,
-                    })
-                })
-            )
-        })
+        fs.collection('users')
+            .doc(currentUser.uid)
+            .collection('tweets')
+            .add({
+                senderId: currentUser.uid,
+                text: tweet,
+                date: new Date(),
+                numberOfLikes: 12,
+                numberOfComments: 21,
+                numberOfRetweets: 102,
+                profileImage: currentUser.profileImage,
+                name: currentUser.name,
+                displayName: currentUser.displayName,
+            })
+            .then(() => {
+                setTweet('')
+            })
     }
 
     return (
@@ -61,7 +33,9 @@ export default function DraftWriter(): ReactElement {
                 {/* <div className='draft' contentEditable='true'>
                     Hello, World!
                 </div> */}
-                <div className='draft'>Hello, World!</div>
+                <div className='draft'>
+                    <input type='text' value={tweet} onChange={(e) => setTweet(e.target.value)} />
+                </div>
                 <div className='actions'>
                     <div className='actions__media'>
                         <div className='icon hover-effect'>

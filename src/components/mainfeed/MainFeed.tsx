@@ -72,8 +72,6 @@ export default function MainFeed(): ReactElement {
 
     return (
         <div className='mainfeed center-expand'>
-            hej
-            {currentUser?.profileImage || 'hejjjjj'}
             <DraftWriter />
             <div ref={listInnerRef}>
                 {tweets &&

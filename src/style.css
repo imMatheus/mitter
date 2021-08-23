@@ -257,11 +257,20 @@ button.action-btn:hover {
   color: var(--color-text-light);
   border-bottom-right-radius: 0;
 }
+.chat-container .messages-container .message.sent + .message__time {
+  align-self: flex-end;
+}
 .chat-container .messages-container .message.received {
   align-self: flex-start;
   background-color: var(--color-text);
   color: var(--background);
   border-bottom-left-radius: 0;
+}
+.chat-container .messages-container .message__time {
+  align-self: flex-start;
+  padding: 2px 18px 8px 18px;
+  font-size: 14px;
+  color: var(--color-text-dimmed);
 }
 .chat-container .inputField {
   background: var(--background);
