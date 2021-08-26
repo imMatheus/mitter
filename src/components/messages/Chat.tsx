@@ -60,7 +60,6 @@ export default function Chat() {
                         {messages &&
                             messages.map((message: any, index: number) => {
                                 let { seconds } = message.createdAt
-                                console.log(seconds)
 
                                 const state =
                                     message.senderId === currentUser?.uid ? 'sent' : 'received'
