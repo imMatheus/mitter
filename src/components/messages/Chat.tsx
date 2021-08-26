@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { fs } from '../../firebase'
 import { useAuth } from '../../context/AuthContext'
-import getDateSincePost from '../../utils/getDateSincePost'
 import { useParams } from 'react-router'
+import getMessageTime from '../../utils/getMessageTime'
+
 export default function Chat() {
     const [message, setMessage] = useState('')
     const [messages, setMessages] = useState<any>([])
@@ -59,6 +60,8 @@ export default function Chat() {
                         {messages &&
                             messages.map((message: any, index: number) => {
                                 let { seconds } = message.createdAt
+                                console.log(seconds)
+
                                 const state =
                                     message.senderId === currentUser?.uid ? 'sent' : 'received'
                                 let b = false
@@ -102,7 +105,7 @@ export default function Chat() {
                                         </div>
                                         {!b && (
                                             <span className='message__time'>
-                                                {getDateSincePost(seconds)}
+                                                {getMessageTime(seconds)}
                                             </span>
                                         )}
                                     </>
