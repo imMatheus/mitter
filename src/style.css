@@ -393,10 +393,10 @@ button.action-btn:hover {
 .sidebar-container .option:hover {
   background-color: var(--background-dimmed);
 }
-.sidebar-container .option > a {
+.sidebar-container .option > svg {
   text-overflow: ellipsis;
   max-width: 100%;
-  margin: 0 16px 0 20px;
+  margin: 0 16px 0 0px;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -10,6 +10,7 @@ export default function Chat() {
     const { currentUser } = useAuth()
     const { chatId }: { chatId: string } = useParams()
     const [userHasAccess, setUserHasAccess] = useState(false)
+    console.log(chatId)
 
     useEffect(() => {
         if (!currentUser) return
