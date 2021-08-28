@@ -12,16 +12,17 @@ export default function MyMessages() {
     useEffect(() => {
         if (!currentUser) return
         fs.collection('messages')
-            .where('participants', 'array-contains-any', [user1, user2])
+            .where('participants', 'array-contains-any', [currentUser.uid])
             .get()
             .then((messages) => {
                 setMessages(
                     messages.docs.map((message) => {
                         const data = message.data()
+                        console.log(data)
+
                         const participants = data.participants.filter(
                             (n: any) => n !== currentUser.uid
                         )
-
                         return { ...message.data(), id: message.id }
                     })
                 )

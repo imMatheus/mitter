@@ -8,6 +8,7 @@ import Sidebar from './components/sidebar/Sidebar'
 import MainFeed from './components/mainfeed/MainFeed'
 import MyMessages from './components/messages/MyMessages'
 import Chat from './components/messages/Chat'
+import Explore from './components/explore/Explore'
 function App() {
     const { currentUser } = useAuth()
 
@@ -33,7 +34,7 @@ function App() {
                                     <UserPage />
                                 </Route>
                             </Switch>
-                            <Sidebar />
+                            <Explore />
                         </>
                     ) : (
                         <SignUp />

@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 import firebase from 'firebase/app'
 import { auth, fs } from '../firebase'
 import User from '../types/User'
+import getNameCombinations from '../utils/getNameCombinations'
 
 async function signup(
     email: string,
@@ -34,12 +35,17 @@ async function signup(
 
     try {
         await auth.createUserWithEmailAndPassword(email, password)
+        const disassembledDisplayName = getNameCombinations(displayName)
+        console.log('---------------------------------------')
+
+        console.log(disassembledDisplayName)
 
         await fs // firestore
             .collection('users')
             .doc(auth.currentUser?.uid) // adding a doc with the the id of the users uid
             .set({
                 displayName: displayName,
+                disassembledDisplayName: disassembledDisplayName,
                 email: email,
                 name: name,
                 userUID: auth.currentUser?.uid,

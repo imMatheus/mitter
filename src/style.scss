@@ -49,6 +49,9 @@ body {
 .center-expand {
     flex-grow: 1;
     width: 100%;
+    // background-color: orange;
+
+    @extend .brd-right;
 }
 
 .text-bold {
@@ -152,6 +155,7 @@ button.action-btn {
 
 @import './components/mainfeed/mainfeed.scss';
 @import './components/tweet/tweet.scss';
+@import './components/explore/explore.scss';
 @import './components/messages/messages.scss';
 @import './components/userpage/userpage.scss';
 @import './components/sidebar/sidebar.scss';

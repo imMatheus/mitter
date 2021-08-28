@@ -1,0 +1,8 @@
+.explore-wrapper {
+    width: 350px;
+    margin-left: 20px;
+    flex-shrink: 0;
+    padding-top: 10px;
+
+    @import './searchBar.scss';
+}

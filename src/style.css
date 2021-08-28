@@ -77,7 +77,7 @@ a {
   border-top: solid 1px var(--color-text-dimmed);
 }
 
-.brd-right {
+.brd-right, .center-expand {
   border-right: solid 1px var(--color-text-dimmed);
 }
 
@@ -229,6 +229,34 @@ button.action-btn:hover {
 }
 .tweet-container__content .metadata__holder span {
   margin-left: 5px;
+}
+
+.explore-wrapper {
+  width: 350px;
+  margin-left: 20px;
+  flex-shrink: 0;
+  padding-top: 10px;
+}
+.explore-wrapper .searchBar-wrapper {
+  width: 100%;
+  background-color: var(--background-dimmed);
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  color: var(--color-text-dimmed);
+  font-size: 17px;
+}
+.explore-wrapper .searchBar-wrapper input {
+  background-color: transparent;
+  padding: 13px;
+  color: var(--color-text);
+}
+.explore-wrapper .searchBar-wrapper input::placeholder {
+  color: var(--color-text-dimmed);
+}
+.explore-wrapper .searchBar-wrapper svg {
+  min-width: 35px;
+  padding-left: 13px;
 }
 
 .chat-container {

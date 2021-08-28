@@ -1,0 +1,23 @@
+.searchBar-wrapper {
+    width: 100%;
+    background-color: var(--background-dimmed);
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    color: var(--color-text-dimmed);
+    font-size: 17px;
+    input {
+        background-color: transparent;
+        padding: 13px;
+        color: var(--color-text);
+
+        &::placeholder {
+            color: var(--color-text-dimmed);
+        }
+    }
+
+    svg {
+        min-width: 35px;
+        padding-left: 13px;
+    }
+}
