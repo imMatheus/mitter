@@ -2,7 +2,11 @@
     width: 350px;
     margin-left: 20px;
     flex-shrink: 0;
-    padding-top: 10px;
+    padding-top: 5px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
 
     @import './searchBar.scss';
+    @import './searchResults.scss';
 }

@@ -1,37 +1,44 @@
-import React, { useRef, useState, ReactElement } from 'react'
-import { Search } from 'react-feather'
-import { fs } from '../../firebase'
-import User from '../../types/User'
+import React, { useRef, ReactElement, useState, useEffect } from 'react'
+import { Search, X } from 'react-feather'
 
 interface Props {
-    setQueriedUsers: React.Dispatch<React.SetStateAction<any[]>>
+    setQueryString: React.Dispatch<React.SetStateAction<string>>
 }
 
-export default function SearchBar({ setQueriedUsers }: Props): ReactElement {
+export default function SearchBar({ setQueryString }: Props): ReactElement {
     const searchRef = useRef<HTMLInputElement>(null)
+    const [active, setActive] = useState(false)
     const querySearch = () => {
-        if (!searchRef || !searchRef.current || !searchRef.current.value) return
-        console.log('searchRef.current.value', searchRef.current.value)
-
-        fs.collection('users')
-            .where('disassembledDisplayName', 'array-contains-any', [searchRef.current.value])
-            .get()
-            .then((users) => {
-                if (users.empty) return setQueriedUsers([])
-                setQueriedUsers(users.docs.map((user) => user.data()))
-                console.log(users)
-            })
+        if (searchRef.current) {
+            setQueryString(searchRef.current.value)
+        }
     }
-
+    useEffect(() => {
+        window.addEventListener('click', () => {
+            setActive((c) => !c)
+            console.log('jhgfg')
+        })
+    }, [])
     return (
-        <div className='searchBar-wrapper'>
+        <form
+            className={`searchBar-wrapper ${active ? 'active' : ''}`}
+            onClick={() => {
+                setActive((c) => !c)
+            }}
+        >
             <Search />
-            <input
-                ref={searchRef}
-                type='text'
-                onChange={() => querySearch()}
-                placeholder='Search Mitter'
-            />
-        </div>
+            <input ref={searchRef} type='text' onChange={querySearch} placeholder='Search Mitter' />
+            <div
+                className='clear-btn'
+                onClick={() => {
+                    setQueryString('')
+                    searchRef!.current!.value = ''
+                }}
+            >
+                <div className='circle'>
+                    <X />
+                </div>
+            </div>
+        </form>
     )
 }
