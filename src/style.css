@@ -283,6 +283,8 @@ button.action-btn:hover {
   justify-content: center;
   margin-right: 13px;
   cursor: pointer;
+  background-color: transparent;
+  border: none;
 }
 .explore-wrapper .searchBar-wrapper .clear-btn:hover {
   opacity: 0.93;

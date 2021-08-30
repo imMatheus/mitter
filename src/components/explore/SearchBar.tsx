@@ -13,24 +13,25 @@ export default function SearchBar({ setQueryString }: Props): ReactElement {
             setQueryString(searchRef.current.value)
         }
     }
-    useEffect(() => {
-        window.addEventListener('click', () => {
-            setActive((c) => !c)
-            console.log('jhgfg')
-        })
-    }, [])
+    // useEffect(() => {
+    //     window.addEventListener('click', () => {
+    //         setActive(false)
+    //         console.log('jhgfg')
+    //     })
+    // }, [])
     return (
         <form
             className={`searchBar-wrapper ${active ? 'active' : ''}`}
-            onClick={() => {
-                setActive((c) => !c)
-            }}
+            // onClick={() => {
+            //     setActive((c) => !c)
+            // }}
         >
             <Search />
             <input ref={searchRef} type='text' onChange={querySearch} placeholder='Search Mitter' />
-            <div
+            <button
                 className='clear-btn'
-                onClick={() => {
+                onClick={(e) => {
+                    e.preventDefault()
                     setQueryString('')
                     searchRef!.current!.value = ''
                 }}
@@ -38,7 +39,7 @@ export default function SearchBar({ setQueryString }: Props): ReactElement {
                 <div className='circle'>
                     <X />
                 </div>
-            </div>
+            </button>
         </form>
     )
 }
