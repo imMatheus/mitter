@@ -12,4 +12,5 @@ export default interface User extends firebase.User {
     joinedAt: firebase.firestore.Timestamp
     amountOfFollowers: number
     amountOfFollowing: number
+    theme: 'light' | 'dimmed' | 'dark'
 }

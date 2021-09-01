@@ -1,5 +1,12 @@
 .searchResults-container {
     max-width: 100%;
+    overflow-y: scroll;
+    min-height: 100px;
+    max-height: calc(80vh - 58px);
+    border-radius: $border-radius-medium;
+    box-shadow: var(--color-text-dimmed-20) 0px 0px 15px,
+        var(--color-text-dimmed-15) 0px 0px 3px 1px;
+
     > .searchResult-container__row {
         &:hover {
             background-color: var(--background-hover);

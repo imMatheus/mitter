@@ -17,6 +17,8 @@
   --color-text: #d9d9d9;
   --color-text-light: #eff3f4;
   --color-text-dimmed: #6e767d;
+  --color-text-dimmed-15: rgba(110, 118, 125, 0.15);
+  --color-text-dimmed-20: rgba(110, 118, 125, 0.2);
   --color-border: #2f3336;
 }
 
@@ -28,7 +30,9 @@
   --background-dimmed-dark: #f7f9f9;
   --color-text: #0f1419;
   --color-text-light: #0f1419;
-  --color-text-dimmed: #536471;
+  --color-text-dimmed: rgb(82, 99, 111);
+  --color-text-dimmed-15: rgba(82, 99, 111, 0.15);
+  --color-text-dimmed-20: rgba(82, 99, 111, 0.2);
   --color-border: #eff3f4;
 }
 
@@ -41,6 +45,8 @@
   --color-text: #ffffff;
   --color-text-light: #eff3f4;
   --color-text-dimmed: #8899a6;
+  --color-text-dimmed-15: #8899a626;
+  --color-text-dimmed-20: #8899a633;
   --color-border: #2f3336;
 }
 
@@ -53,6 +59,8 @@
   --color-text: #d9d9d9;
   --color-text-light: #eff3f4;
   --color-text-dimmed: #6e767d;
+  --color-text-dimmed-15: #6e767d26;
+  --color-text-dimmed-20: #6e767d33;
   --color-border: #2f3336;
 }
 
@@ -72,6 +80,13 @@ body {
 .center-expand {
   flex-grow: 1;
   width: 100%;
+}
+
+.App > .loader-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .text-bold {
@@ -342,6 +357,11 @@ button.action-btn:hover {
 }
 .explore-wrapper .searchResults-container {
   max-width: 100%;
+  overflow-y: scroll;
+  min-height: 100px;
+  max-height: calc(80vh - 58px);
+  border-radius: 8px;
+  box-shadow: var(--color-text-dimmed-20) 0px 0px 15px, var(--color-text-dimmed-15) 0px 0px 3px 1px;
 }
 .explore-wrapper .searchResults-container > .searchResult-container__row {
   cursor: pointer;
@@ -551,6 +571,21 @@ button.action-btn:hover {
   text-overflow: ellipsis;
   max-width: 100%;
   margin: 0 16px 0 0px;
+}
+
+.loader-circle {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  border: solid 3px rgba(29, 161, 242, 0.18);
+  border-radius: 50%;
+  border-top-color: #1da1f2;
+  animation: loader-circle-rotate 700ms infinite linear;
+}
+@keyframes loader-circle-rotate {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

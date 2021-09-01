@@ -74,6 +74,7 @@ async function resetPassword(email: string) {
 }
 interface Context {
     currentUser: User | null
+    fetchingUser: boolean
     logout: () => Promise<void>
     login: (email: string, password: string) => Promise<firebase.auth.UserCredential>
     signup: (
@@ -89,6 +90,7 @@ interface Context {
 const AuthContext = createContext<Context>({
     currentUser: null,
     logout,
+    fetchingUser: false,
     login,
     signup,
     resetPassword,
@@ -100,8 +102,10 @@ export function useAuth() {
 
 export const AuthProvider: React.FC = ({ children }) => {
     const [currentUser, setCurrentUser] = useState<User | null>(null)
+    const [fetchingUser, setFetchingUser] = useState(false)
 
     useEffect(() => {
+        setFetchingUser(true)
         const unsubscribe = auth.onAuthStateChanged(async (user) => {
             const fetchUser = async (user: firebase.User | any) => {
                 if (!user) return null
@@ -113,12 +117,14 @@ export const AuthProvider: React.FC = ({ children }) => {
             const response = await fetchUser(user)
 
             setCurrentUser(response)
+            setFetchingUser(false)
         })
         return unsubscribe
     }, [])
 
     const value = {
         currentUser,
+        fetchingUser,
         logout,
         login,
         signup,

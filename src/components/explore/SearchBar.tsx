@@ -10,15 +10,10 @@ export default function SearchBar({ setQueryString }: Props): ReactElement {
 
     const querySearch = () => {
         if (searchRef.current) {
-            setQueryString(searchRef.current.value)
+            setQueryString(searchRef.current.value.toLowerCase())
         }
     }
-    // useEffect(() => {
-    //     window.addEventListener('click', () => {
-    //         setActive(false)
-    //         console.log('jhgfg')
-    //     })
-    // }, [])
+
     return (
         <form className={`searchBar-wrapper`}>
             <Search />

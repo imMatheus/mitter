@@ -2,8 +2,13 @@ import React, { ReactElement, useEffect, useRef, useState, useLayoutEffect } fro
 import DraftWriter from './DraftWriter'
 import { useAuth } from '../../context/AuthContext'
 import Tweet from '../tweet/Tweet'
-import { fs } from '../../firebase'
+import app, { fs } from '../../firebase'
+import firdeum, { firedumAdd, firedumCreateUser } from 'firedum'
 import firebase from 'firebase/app'
+import getNameCombinations from '../../utils/getNameCombinations'
+
+firdeum(app)
+
 export default function MainFeed(): ReactElement {
     const { currentUser } = useAuth()
     const listInnerRef = useRef<HTMLDivElement>(null)
@@ -70,9 +75,72 @@ export default function MainFeed(): ReactElement {
 
     console.log(tweets)
 
+    const addUsers = async () => {
+        console.log('adding users...')
+
+        await firedumCreateUser({
+            collectionReference: fs.collection('users'),
+            fields: {
+                name: ':firstName',
+                displayName: ':userName',
+                profileImage: ':avatar',
+                bio: ':sentence',
+                location: ':city',
+                url: ':url',
+                joinedAt: new Date(),
+                amountOfFollowers: ':number',
+                amountOfFollowing: ':number',
+            },
+            amountOfUsers: 10,
+        }).then(async ({ ids, reference, data }) => {
+            if (!ids) return
+
+            await Promise.all(
+                ids.map(async (id: string, index: number) => {
+                    await firedumAdd({
+                        collectionReference: reference.doc(id).collection('tweets'),
+                        fields: {
+                            text: ':sentence',
+                            date: ':recent',
+                            numberOfComments: ':number',
+                            numberOfRetweets: ':number',
+                            numberOfLikes: ':number',
+                            displayName: data[index].displayName,
+                            name: data[index].name,
+                            profileImage: data[index].profileImage,
+                            createdAt: ':recent',
+                        },
+                        numberOfDocuments: 6,
+                    })
+                })
+            )
+        })
+        console.log('done')
+    }
+
+    const addSearch = async () => {
+        console.log('started')
+
+        await fs
+            .collection('users')
+            .get()
+            .then(async (querySnapshot) => {
+                querySnapshot.forEach(async function (doc) {
+                    fs.collection('users').doc(doc.id).update({
+                        theme: 'dimmed',
+                        // disassembledDisplayName: getNameCombinations(doc.data().displayName),
+                    })
+                })
+            })
+        console.log('ending')
+    }
+
     return (
         <div className='mainfeed center-expand'>
             <DraftWriter />
+            <button onClick={addUsers}>add user</button>
+            <button onClick={addSearch}>add search</button>
+
             <div ref={listInnerRef}>
                 {tweets &&
                     tweets.map((tweet: any, index: number) => {

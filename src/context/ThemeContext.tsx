@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-
+import { useAuth } from './AuthContext'
+import useLocalStorage from '../hooks/useLocalStorage'
 interface Context {
     theme: 'light' | 'dimmed' | 'dark'
     setTheme: React.Dispatch<React.SetStateAction<'light' | 'dimmed' | 'dark'>>
@@ -15,11 +16,20 @@ export function useTheme() {
 }
 
 export const ThemeProvider: React.FC = ({ children }) => {
-    const [theme, setTheme] = useState<'light' | 'dimmed' | 'dark'>('light')
+    const { currentUser } = useAuth()
+    console.log(currentUser)
+
+    const [theme, setTheme] = useLocalStorage<'light' | 'dimmed' | 'dark'>(
+        'theme',
+        (currentUser && currentUser.theme) || 'light'
+    )
 
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme)
     }, [theme])
+    useEffect(() => {
+        if (currentUser) setTheme(currentUser.theme)
+    }, [currentUser])
     const value = {
         theme,
         setTheme,
