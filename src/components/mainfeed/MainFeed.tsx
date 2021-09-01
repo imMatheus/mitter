@@ -77,7 +77,8 @@ export default function MainFeed(): ReactElement {
 
     const addUsers = async () => {
         console.log('adding users...')
-
+        //TODO add to pagination
+        //https://github.com/firebase/snippets-web/blob/81fcf30888909936d4898421e858da809f8cf595/firestore/test.firestore.js#L485-L495
         await firedumCreateUser({
             collectionReference: fs.collection('users'),
             fields: {
