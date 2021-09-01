@@ -1,5 +1,5 @@
 import React from 'react'
-import { Home, Hash, Bell, Mail, User, MoreHorizontal } from 'react-feather'
+import { Home, Hash, Bell, Mail, User, MoreHorizontal, Settings } from 'react-feather'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 export default function Sidebar() {
@@ -34,6 +34,12 @@ export default function Sidebar() {
                 <div className='option'>
                     <User />
                     Profile
+                </div>
+            </Link>
+            <Link to={`/settings`}>
+                <div className='option'>
+                    <Settings />
+                    Settings
                 </div>
             </Link>
             <Link to='/'>

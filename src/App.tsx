@@ -9,12 +9,16 @@ import MainFeed from './components/mainfeed/MainFeed'
 import MyMessages from './components/messages/MyMessages'
 import Chat from './components/messages/Chat'
 import Explore from './components/explore/Explore'
+import Settings from './components/settings/Settings'
+import { useTheme } from './context/ThemeContext'
+
 function App() {
     const { currentUser } = useAuth()
+    const { theme } = useTheme()
 
     return (
         <Router>
-            <div className='App'>
+            <div className={`App ${theme}`}>
                 <div className='content'>
                     {currentUser ? (
                         <>
@@ -23,6 +27,9 @@ function App() {
                             <Switch>
                                 <Route exact path='/'>
                                     <MainFeed />
+                                </Route>
+                                <Route exact path='/settings'>
+                                    <Settings />
                                 </Route>
                                 <Route exact path='/messages'>
                                     <MyMessages />
