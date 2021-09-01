@@ -18,7 +18,7 @@ $transition-speed-fast: 250ms;
 $transition-speed-medium: 500ms;
 $transition-speed-slow: 800ms;
 
-$border-radius-light: 5px;
+$border-radius-light: 4px;
 $border-radius-medium: 8px;
 $border-radius-round: 15px;
 
@@ -34,6 +34,12 @@ $border-radius-round: 15px;
     --color-text-dimmed-15: rgba(110, 118, 125, 0.15);
     --color-text-dimmed-20: rgba(110, 118, 125, 0.2);
     --color-border: #2f3336;
+    --theme-light-background: #ffffff;
+    --theme-light-text: #0f1419;
+    --theme-dimmed-background: #15202b;
+    --theme-dimmed-text: #ffffff;
+    --theme-dark-background: #000000;
+    --theme-dark-text: #d9d9d9;
 }
 
 [data-theme='light'] {

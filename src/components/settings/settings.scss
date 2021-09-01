@@ -1,0 +1,83 @@
+.settings-container {
+    .buttons-container {
+        display: flex;
+        padding: 4px 12px;
+
+        > .theme-btn {
+            min-height: 64px;
+            margin: 4px;
+            padding: 0 20px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            border-radius: $border-radius-light;
+            border: 1px solid var(--background-second);
+            cursor: pointer;
+
+            &.light {
+                background: var(--theme-light-background);
+                color: #0f1419;
+
+                > .circle-wrapper > .circle {
+                    border-color: #b9cad3;
+                }
+            }
+
+            &.dimmed {
+                background: var(--theme-dimmed-background);
+                color: #ffffff;
+                > .circle-wrapper > .circle {
+                    border-color: #6b7d8c;
+                }
+            }
+            &.dark {
+                background: var(--theme-dark-background);
+                color: #d9d9d9;
+                > .circle-wrapper > .circle {
+                    border-color: #3d4145;
+                }
+            }
+
+            &.selected {
+                border-color: $color-theme;
+                border-width: 2px;
+                > .circle-wrapper > .circle {
+                    border-color: transparent;
+                    background-color: $color-theme;
+                }
+            }
+
+            > .circle-wrapper {
+                width: 40px;
+                height: 40px;
+                margin-left: -11px;
+                margin-right: -11px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                > .circle {
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 9999px;
+                    border: 2px solid transparent;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    > svg {
+                        color: #ffffff;
+                        width: 18px;
+                        height: 18px;
+                    }
+                }
+            }
+            > .title {
+                margin-left: 5px;
+                text-align: center;
+                width: 100%;
+
+                font-weight: 700;
+            }
+        }
+    }
+}

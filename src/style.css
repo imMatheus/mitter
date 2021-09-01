@@ -20,6 +20,12 @@
   --color-text-dimmed-15: rgba(110, 118, 125, 0.15);
   --color-text-dimmed-20: rgba(110, 118, 125, 0.2);
   --color-border: #2f3336;
+  --theme-light-background: #ffffff;
+  --theme-light-text: #0f1419;
+  --theme-dimmed-background: #15202b;
+  --theme-dimmed-text: #ffffff;
+  --theme-dark-background: #000000;
+  --theme-dark-text: #d9d9d9;
 }
 
 [data-theme=light] {
@@ -484,6 +490,79 @@ body {
   text-overflow: ellipsis;
   max-width: 100%;
   margin: 0 16px 0 0px;
+}
+.App .settings-container .buttons-container {
+  display: flex;
+  padding: 4px 12px;
+}
+.App .settings-container .buttons-container > .theme-btn {
+  min-height: 64px;
+  margin: 4px;
+  padding: 0 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid var(--background-second);
+  cursor: pointer;
+}
+.App .settings-container .buttons-container > .theme-btn.light {
+  background: var(--theme-light-background);
+  color: #0f1419;
+}
+.App .settings-container .buttons-container > .theme-btn.light > .circle-wrapper > .circle {
+  border-color: #b9cad3;
+}
+.App .settings-container .buttons-container > .theme-btn.dimmed {
+  background: var(--theme-dimmed-background);
+  color: #ffffff;
+}
+.App .settings-container .buttons-container > .theme-btn.dimmed > .circle-wrapper > .circle {
+  border-color: #6b7d8c;
+}
+.App .settings-container .buttons-container > .theme-btn.dark {
+  background: var(--theme-dark-background);
+  color: #d9d9d9;
+}
+.App .settings-container .buttons-container > .theme-btn.dark > .circle-wrapper > .circle {
+  border-color: #3d4145;
+}
+.App .settings-container .buttons-container > .theme-btn.selected {
+  border-color: #1da1f2;
+  border-width: 2px;
+}
+.App .settings-container .buttons-container > .theme-btn.selected > .circle-wrapper > .circle {
+  border-color: transparent;
+  background-color: #1da1f2;
+}
+.App .settings-container .buttons-container > .theme-btn > .circle-wrapper {
+  width: 40px;
+  height: 40px;
+  margin-left: -11px;
+  margin-right: -11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.App .settings-container .buttons-container > .theme-btn > .circle-wrapper > .circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.App .settings-container .buttons-container > .theme-btn > .circle-wrapper > .circle > svg {
+  color: #ffffff;
+  width: 18px;
+  height: 18px;
+}
+.App .settings-container .buttons-container > .theme-btn > .title {
+  margin-left: 5px;
+  text-align: center;
+  width: 100%;
+  font-weight: 700;
 }
 .App .loader-circle {
   width: 30px;
