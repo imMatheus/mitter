@@ -1,0 +1,73 @@
+.chat-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    .messages-container {
+        padding: 0 18px 8px 18px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+
+        .message {
+            font-size: 17px;
+            max-width: 62%;
+            white-space: initial;
+            min-height: 36px;
+            padding: 13px 18px;
+
+            display: flex;
+            margin: 2px 0;
+            border-radius: 16px;
+            word-break: break-all;
+            &.sent {
+                align-self: flex-end;
+                background-color: $color-theme;
+                color: var(--color-text-light);
+                border-bottom-right-radius: 0;
+                & + .message__time {
+                    align-self: flex-end;
+                }
+                &.center {
+                    border-top-right-radius: 0;
+                }
+            }
+            &.received {
+                align-self: flex-start;
+                background-color: var(--color-text);
+                color: var(--background);
+                border-bottom-left-radius: 0;
+                &.center {
+                    border-top-left-radius: 0;
+                }
+            }
+
+            &__time {
+                align-self: flex-start;
+                padding: 2px 0 8px 0;
+                font-size: 14px;
+                color: var(--color-text-dimmed);
+            }
+        }
+    }
+
+    .inputField {
+        background: var(--background);
+        width: 100%;
+        position: sticky;
+        bottom: 0;
+        padding: 9px;
+        min-height: 60px;
+        display: flex;
+        margin-top: auto;
+
+        > input {
+            padding: 4px 13px;
+            border-radius: 9999px;
+            color: var(--color-text);
+            background: transparent;
+            margin-right: 12px;
+            width: 100%;
+            border: solid 1px var(--color-text-dimmed);
+        }
+    }
+}

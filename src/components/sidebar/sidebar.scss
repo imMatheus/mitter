@@ -1,0 +1,28 @@
+.sidebar-container {
+    width: 270px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+
+    .option {
+        // background: green;
+        width: max-content;
+        display: flex;
+        align-items: center;
+        font-size: 24px;
+        border-radius: 9999px;
+        padding: 12px;
+        cursor: pointer;
+        transition: background-color $transition-speed-fast;
+
+        &:hover {
+            background-color: var(--background-dimmed);
+        }
+
+        > svg {
+            text-overflow: ellipsis;
+            max-width: 100%;
+            margin: 0 16px 0 0px;
+        }
+    }
+}
