@@ -22,7 +22,7 @@
             &.sent {
                 align-self: flex-end;
                 background-color: $color-theme;
-                color: var(--color-text-light);
+                color: #ffffff;
                 border-bottom-right-radius: 0;
                 & + .message__time {
                     align-self: flex-end;
@@ -33,8 +33,8 @@
             }
             &.received {
                 align-self: flex-start;
-                background-color: var(--color-text);
-                color: var(--background);
+                background-color: var(--background-second);
+                color: var(--color-text-light);
                 border-bottom-left-radius: 0;
                 &.center {
                     border-top-left-radius: 0;
