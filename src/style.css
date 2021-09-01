@@ -491,6 +491,13 @@ body {
   max-width: 100%;
   margin: 0 16px 0 0px;
 }
+.App .settings-container .settings-section {
+  padding: 16px 0px;
+}
+.App .settings-container .settings-section > h2 {
+  padding: 0 16px;
+  margin-bottom: 12px;
+}
 .App .settings-container .buttons-container {
   display: flex;
   padding: 4px 12px;
@@ -563,6 +570,42 @@ body {
   text-align: center;
   width: 100%;
   font-weight: 700;
+}
+.App .settings-container .profileEdit-wrapper .input-field {
+  margin: 12px 16px;
+  border: 1px solid var(--background-light);
+  border-radius: 4px;
+  position: relative;
+}
+.App .settings-container .profileEdit-wrapper .input-field label {
+  width: 100%;
+  display: block;
+  height: 100%;
+  padding: 8px;
+}
+.App .settings-container .profileEdit-wrapper .input-field label:focus-within .title .legend {
+  color: #1da1f2;
+}
+.App .settings-container .profileEdit-wrapper .input-field label:focus-within .title .tracker {
+  display: initial;
+}
+.App .settings-container .profileEdit-wrapper .input-field label .title {
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-text-dimmed);
+  font-size: 14px;
+}
+.App .settings-container .profileEdit-wrapper .input-field label .title span.tracker {
+  display: none;
+}
+.App .settings-container .profileEdit-wrapper .input-field label .input {
+  margin-top: 8px;
+}
+.App .settings-container .profileEdit-wrapper .input-field label .input input {
+  background-color: transparent;
+  width: 100%;
+  font-size: 17px;
+  color: var(--color-text);
 }
 .App .loader-circle {
   width: 30px;

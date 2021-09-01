@@ -1,0 +1,43 @@
+.profileEdit-wrapper {
+    .input-field {
+        margin: 12px 16px;
+        border: 1px solid var(--background-light);
+        border-radius: $border-radius-light;
+        position: relative;
+        label {
+            width: 100%;
+            display: block;
+            height: 100%;
+            padding: 8px;
+            &:focus-within {
+                .title .legend {
+                    color: $color-theme;
+                }
+                .title .tracker {
+                    display: initial;
+                }
+            }
+
+            .title {
+                display: flex;
+                justify-content: space-between;
+                color: var(--color-text-dimmed);
+                font-size: 14px;
+                // margin-bottom: 4px;
+                span.tracker {
+                    display: none;
+                }
+            }
+
+            .input {
+                margin-top: 8px;
+                input {
+                    background-color: transparent;
+                    width: 100%;
+                    font-size: 17px;
+                    color: var(--color-text);
+                }
+            }
+        }
+    }
+}
