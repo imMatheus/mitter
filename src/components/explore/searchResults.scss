@@ -3,10 +3,29 @@
     overflow-y: scroll;
     min-height: 100px;
     max-height: calc(80vh - 58px);
+    overflow-x: hidden;
     border-radius: $border-radius-medium;
     box-shadow: var(--color-text-dimmed-20) 0px 0px 15px,
         var(--color-text-dimmed-15) 0px 0px 3px 1px;
 
+    &.loading {
+        position: relative;
+
+        &::before {
+            content: '';
+            animation: search-loading 1200ms infinite linear;
+            background-color: $color-theme;
+            width: 20%;
+            height: 3px;
+            position: absolute;
+        }
+
+        @keyframes search-loading {
+            100% {
+                margin-left: 100%;
+            }
+        }
+    }
     > .searchResult-container__row {
         &:hover {
             background-color: var(--background-hover);

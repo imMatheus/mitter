@@ -282,8 +282,25 @@ body {
   overflow-y: scroll;
   min-height: 100px;
   max-height: calc(80vh - 58px);
+  overflow-x: hidden;
   border-radius: 8px;
   box-shadow: var(--color-text-dimmed-20) 0px 0px 15px, var(--color-text-dimmed-15) 0px 0px 3px 1px;
+}
+.App .explore-wrapper .searchResults-container.loading {
+  position: relative;
+}
+.App .explore-wrapper .searchResults-container.loading::before {
+  content: "";
+  animation: search-loading 1200ms infinite linear;
+  background-color: #1da1f2;
+  width: 20%;
+  height: 3px;
+  position: absolute;
+}
+@keyframes search-loading {
+  100% {
+    margin-left: 100%;
+  }
 }
 .App .explore-wrapper .searchResults-container > .searchResult-container__row {
   cursor: pointer;

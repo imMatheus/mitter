@@ -5,7 +5,6 @@ interface Props {
     searchResults: any[]
     queryString: string
     loading: boolean
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 function getMatch(s: string, queryString: string): number {
     let best = 0
@@ -33,30 +32,20 @@ export default function SearchResults({
     searchResults,
     queryString,
     loading,
-    setLoading,
 }: Props): ReactElement {
     function sortResults(arr: any[], queryString: string): any[] {
-        console.log('stared sort')
-
         arr.sort(
             (a, b) => getMatch(b.displayName, queryString) - getMatch(a.displayName, queryString)
         )
-        console.log('ended sort')
 
-        setLoading(false)
         return arr
     }
 
     const history = useHistory()
     sortResults(searchResults, queryString)
-    console.log('loading', loading)
 
-    if (loading)
-        return (
-            <div className='searchResults-container' style={{ backgroundColor: '#f00' }}>
-                hello
-            </div>
-        )
+    if (loading && queryString !== '')
+        return <div className={`searchResults-container ${loading ? 'loading' : ''}`}></div>
     return (
         <>
             {searchResults.length > 0 || queryString !== '' ? (

@@ -85,23 +85,25 @@ export default function MainFeed(): ReactElement {
                 name: ':firstName',
                 displayName: ':userName',
                 profileImage: ':avatar',
-                bio: ':sentence',
+                bio: ':sentences',
                 location: ':city',
                 url: ':url',
                 joinedAt: new Date(),
                 amountOfFollowers: ':number',
                 amountOfFollowing: ':number',
+                theme: 'dimmed',
             },
-            amountOfUsers: 10,
+            amountOfUsers: 4,
         }).then(async ({ ids, reference, data }) => {
             if (!ids) return
+            console.log('ids', ids)
 
             await Promise.all(
                 ids.map(async (id: string, index: number) => {
                     await firedumAdd({
                         collectionReference: reference.doc(id).collection('tweets'),
                         fields: {
-                            text: ':sentence',
+                            text: ':sentences',
                             date: ':recent',
                             numberOfComments: ':number',
                             numberOfRetweets: ':number',
@@ -111,7 +113,7 @@ export default function MainFeed(): ReactElement {
                             profileImage: data[index].profileImage,
                             createdAt: ':recent',
                         },
-                        numberOfDocuments: 6,
+                        numberOfDocuments: 20,
                     })
                 })
             )
@@ -127,10 +129,11 @@ export default function MainFeed(): ReactElement {
             .get()
             .then(async (querySnapshot) => {
                 querySnapshot.forEach(async function (doc) {
-                    fs.collection('users').doc(doc.id).update({
-                        theme: 'dimmed',
-                        // disassembledDisplayName: getNameCombinations(doc.data().displayName),
-                    })
+                    fs.collection('users')
+                        .doc(doc.id)
+                        .update({
+                            disassembledDisplayName: getNameCombinations(doc.data().displayName),
+                        })
                 })
             })
         console.log('ending')
