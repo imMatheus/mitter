@@ -6,8 +6,19 @@ export default function ProfileEdit(): ReactElement {
     const { currentUser } = useAuth()
     const [name, setName] = useState(currentUser!.name || '')
     const [bio, setBio] = useState(currentUser!.bio || '')
-    console.log('currentUser', currentUser)
-    const changeName = async () => {
+    const [error, setError] = useState('')
+    const UpdateProfile = async () => {
+        try {
+            if (currentUser!.name !== name) await updateName()
+            if (currentUser!.bio !== bio) await updateBio()
+        } catch (error) {
+            console.log(error)
+            return setError('Oops, something went wrong')
+        }
+        setError('')
+    }
+
+    const updateName = async () => {
         if (currentUser) {
             console.log('started')
 
@@ -31,7 +42,7 @@ export default function ProfileEdit(): ReactElement {
             console.log('ened')
         }
     }
-    const changeBio = async () => {
+    const updateBio = async () => {
         if (currentUser) {
             console.log('started')
 
@@ -44,9 +55,16 @@ export default function ProfileEdit(): ReactElement {
     }
     return (
         <div className='settings-section profileEdit-wrapper'>
-            <h2>Edit profile</h2>
-            <button onClick={changeName}>change</button>
-            <button onClick={changeBio}>change</button>
+            <h2>
+                Edit profile
+                <div>
+                    <button onClick={UpdateProfile} className='action-btn'>
+                        Update profile
+                    </button>
+                </div>
+            </h2>
+            <h5>{error}</h5>
+
             <div className='input-field'>
                 <label htmlFor='name'>
                     <div className='title'>
@@ -77,6 +95,8 @@ export default function ProfileEdit(): ReactElement {
                             type='text'
                             name='bio'
                             id='bio'
+                            max={160}
+                            min='0'
                             value={bio}
                             onChange={(e: any) => setBio(e.target.value)}
                         />
