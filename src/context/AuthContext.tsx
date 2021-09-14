@@ -107,17 +107,39 @@ export const AuthProvider: React.FC = ({ children }) => {
     useEffect(() => {
         setFetchingUser(true)
         const unsubscribe = auth.onAuthStateChanged(async (user) => {
-            if (!user) return
-            fs.collection('users')
-                .doc(user.uid)
-                .onSnapshot((doc: any) => {
-                    let data = doc.data()
-                    console.log('Current data: ', data)
+            const fetchUser = async (user: firebase.User | any) => {
+                if (!user) return null
+                // getting the users data from firestore
+                const response = fs.collection('users').doc(user.uid)
+                const data = await response.get()
+                console.log('data', data.data())
 
-                    setCurrentUser({ ...user, ...data })
-                    setFetchingUser(false)
-                })
+                return { ...user, ...data.data() }
+            }
+            const response = await fetchUser(user)
+
+            setCurrentUser(response)
+            setFetchingUser(false)
         })
+        console.log('wwwwwwwwwwwwwww')
+
+        return unsubscribe
+    }, [])
+    useEffect(() => {
+        console.log('gg')
+
+        const unsubscribe = fs
+            .collection('users')
+            .doc(currentUser?.uid)
+            .onSnapshot((doc: any) => {
+                let data = doc.data()
+                console.log('Current data: ', data)
+
+                console.log('currentUser', currentUser)
+
+                setCurrentUser({ ...currentUser, ...data })
+                setFetchingUser(false)
+            })
         return unsubscribe
     }, [])
 

@@ -6,11 +6,13 @@ export default function ProfileEdit(): ReactElement {
     const { currentUser } = useAuth()
     const [name, setName] = useState(currentUser!.name || '')
     const [bio, setBio] = useState(currentUser!.bio || '')
+    const [location, setLocation] = useState(currentUser!.location || '')
     const [error, setError] = useState('')
     const UpdateProfile = async () => {
         try {
             if (currentUser!.name !== name) await updateName()
             if (currentUser!.bio !== bio) await updateBio()
+            if (currentUser!.location !== location) await updateLocation()
         } catch (error) {
             console.log(error)
             return setError('Oops, something went wrong')
@@ -53,6 +55,17 @@ export default function ProfileEdit(): ReactElement {
             console.log('ened')
         }
     }
+    const updateLocation = async () => {
+        if (currentUser) {
+            console.log('started')
+
+            await fs.collection('users').doc(currentUser.uid).update({
+                location: location,
+            })
+
+            console.log('ened')
+        }
+    }
     return (
         <div className='settings-section profileEdit-wrapper'>
             <h2>
@@ -76,6 +89,8 @@ export default function ProfileEdit(): ReactElement {
                         <input
                             type='text'
                             name='name'
+                            max={50}
+                            maxLength={50}
                             id='name'
                             value={name}
                             onChange={(e: any) => setName(e.target.value)}
@@ -96,9 +111,29 @@ export default function ProfileEdit(): ReactElement {
                             name='bio'
                             id='bio'
                             max={160}
-                            min='0'
+                            maxLength={160}
                             value={bio}
                             onChange={(e: any) => setBio(e.target.value)}
+                        />
+                    </div>
+                </label>
+            </div>
+            <div className='input-field'>
+                <label htmlFor='location'>
+                    <div className='title'>
+                        <span className='legend'>Location</span>
+                        <span className='tracker'>{location.length} / 30</span>
+                    </div>
+
+                    <div className='input'>
+                        <input
+                            type='text'
+                            name='location'
+                            id='location'
+                            max={30}
+                            maxLength={30}
+                            value={location}
+                            onChange={(e: any) => setLocation(e.target.value)}
                         />
                     </div>
                 </label>

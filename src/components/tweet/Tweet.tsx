@@ -25,8 +25,8 @@ export default function Tweet({
     profileImage,
     createdAt,
 }: Props): ReactElement {
-    let postSecs = Math.floor(createdAt.toMillis() / 1000)
     let secsNow = Math.floor(new Date().getTime() / 1000)
+    let postSecs = Math.floor(createdAt.toMillis() / 1000)
 
     let date = getDateSincePost(postSecs)
 
